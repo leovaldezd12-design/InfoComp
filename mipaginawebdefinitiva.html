@@ -1,0 +1,644 @@
+<!DOCTYPE html><html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InfoCompt - Componentes de Computación</title>
+    <link class="component-link" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-weight/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #2563eb;
+            --accent: #38bdf8;
+            --background: #f8fafc;
+            --text: #334155;
+            --white: #ffffff;
+            --top-bar-blue: #2563eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            padding-top: 105px; /* Espacio para el header */
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .top-accent-bar {
+            background-color: var(--top-bar-blue);
+            height: 35px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 40px;
+        }
+
+        .top-accent-bar .user-data-text {
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .main-nav {
+            background-color: var(--primary);
+            width: 100%;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            gap: 15px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            color: var(--white);
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            flex-wrap: nowrap;
+        }
+
+        .nav-item {
+            white-space: nowrap;
+        }
+
+        .nav-item a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 8px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a:hover {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        @media (max-width: 1000px) {
+            .nav-item a {
+                font-size: 13px;
+                padding: 6px 8px;
+            }
+            .nav-menu {
+                gap: 8px;
+            }
+        }
+
+        /* --- CONTENIDO --- */
+        section {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 60px 20px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .section-title {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+
+        /* --- CARRUSEL CON TRANSICIÓN SUAVE --- */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            background-color: #000;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: var(--white);
+            padding: 30px 20px;
+        }
+
+        /* --- SECCIÓN QUIÉNES SOMOS --- */
+        .profile-container {
+            display: flex;
+            align-items: center; 
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary);
+            flex-shrink: 0; 
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .profile-info h3 {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: var(--text);
+            text-align: justify;
+        }
+
+        /* --- SECCIÓN MISIÓN Y VISIÓN --- */
+        .grid-two {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-two {
+                grid-template-columns: 1fr; 
+            }
+        }
+
+        .card-mv {
+            padding: 0; 
+            background-color: transparent; 
+        }
+
+        .card-mv h3 {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .card-mv h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 45px;
+            height: 3px;
+            background-color: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .card-mv p {
+            font-size: 16px;
+            color: var(--text);
+            text-align: justify;
+            margin-top: 15px;
+        }
+
+        /* --- PRODUCTOS --- */
+        .grid-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--white);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* --- PROVEEDORES --- */
+        .grid-providers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .provider-card {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--background);
+            border-radius: 8px;
+        }
+
+        .provider-img {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            mix-blend-mode: multiply;
+        }
+
+        /* --- CLIENTES --- */
+        .grid-clients {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .client-card {
+            display: flex;
+            align-items: center; /* Alinea verticalmente el logo con el texto */
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background-color: var(--white);
+        }
+
+        .client-img {
+            width: 80px; /* Tamaño un poco más grande para mejor legibilidad */
+            height: 80px;
+            object-fit: contain; /* Garantiza que el logo completo se vea sin recortes */
+            flex-shrink: 0; /* Evita que el logo se aplaste */
+        }
+
+        .client-details h4 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .client-details p {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        /* --- CONTACTO --- */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-info p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-info p i {
+            color: var(--secondary);
+            font-size: 20px;
+            width: 24px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            background-color: #1877f2;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: #145dbf;
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+            display: block;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none;
+        }
+
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            margin-top: 60px;
+            font-size: 14px;
+        }
+    </style></head><body>
+
+    <header>
+        <div class="top-accent-bar">
+            <div class="user-data-text">Oscar Leonardo Valdez De León - 0900-26-4380</div>
+        </div>
+        <div class="main-nav">
+            <div class="nav-container">
+                <div class="logo-area">
+                    <a href="#" class="logo"><i class="fa-solid fa-microchip"></i>Info<span>Compt</span></a>
+                </div>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li class="nav-item"><a href="#mision-vision">Misión y Visión</a></li>
+                    <li class="nav-item"><a href="#productos">Productos</a></li>
+                    <li class="nav-item"><a href="#proveedores">Proveedores</a></li>
+                    <li class="nav-item"><a href="#clientes">Clientes</a></li>
+                    <li class="nav-item"><a href="#contactenos">Contáctenos</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="carousel-container">
+            <div class="carousel-slide active">
+                <img src="https://i.imgur.com/3s7D5xA.png" alt="Hardware de última generación">
+                <div class="carousel-caption">
+                    <h2>Componentes de Alta Gama</h2>
+                    <p>Potencia tu estación de trabajo y gaming con las mejores marcas.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?auto=format&fit=crop&w=1200&q=80" alt="Ensamblaje profesional">
+                <div class="carousel-caption">
+                    <h2>Especialistas en Actualizaciones</h2>
+                    <p>Encuentra tarjetas gráficas de bajo perfil ideales para sistemas de factor de forma pequeño.</p>
+                </div>
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=1200&q=80" alt="Rendimiento garantizado">
+                <div class="carousel-caption">
+                    <h2>Almacenamiento y Velocidad</h2>
+                    <p>Unidades de estado sólido NVMe y memorias RAM de alto rendimiento listas para despachar.</p>
+                </div>
+            </div>
+        </div>
+
+        <section id="quienes-somos">
+            <h2 class="section-title">Quiénes Somos</h2>
+            <div class="profile-container">
+                <img src="https://i.imgur.com/JSptngp.png" alt="InfoCompt Fundador" class="profile-img">
+                <div class="profile-info">
+                    <h3>InfoCompt</h3>
+                    <p>InfoCompt es una empresa guatemalteca líder en la distribución de componentes de computación auténticos y de alto rendimiento. Nos especializamos en proporcionar hardware de última generación, desde tarjetas gráficas potentes y procesadores ultrarrápidos hasta soluciones de almacenamiento y memoria RAM premium.</p>
+                    <p>Nuestra meta es empoderar a los entusiastas de la tecnología, creadores de contenido y empresas locales en Guatemala con las herramientas necesarias para potenciar su rendimiento y creatividad.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="mision-vision">
+            <div class="grid-two">
+                <div class="card-mv">
+                    <h3>Misión</h3>
+                    <p>Proveer a nuestros clientes en Guatemala componentes de computación auténticos y de alto rendimiento, brindando asesoría técnica especializada y soluciones a medida que impulsen la eficiencia tecnológica de sus equipos informáticos y proyectos de desarrollo.</p>
+                </div>
+                <div class="card-mv">
+                    <h3>Visión</h3>
+                    <p>Ser el distribuidor tecnológico de referencia a nivel nacional, reconocido por la calidad del hardware, la innovación en la gestión de stock y el compromiso con la optimización de hardware heredado y de última generación.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="productos">
+            <h2 class="section-title">Nuestros Productos</h2>
+            <div class="grid-products">
+                <div class="product-card">
+                    <img src="https://i.imgur.com/ppKP1ja.png" alt="Tarjeta Gráfica Low Profile" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Tarjeta de Video NVIDIA GTX 1650 Low Profile 4GB</div>
+                        <div class="product-price">Q 1,650.00</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.imgur.com/dLOP1A1.png" alt="Memoria RAM DDR4" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Memoria RAM Corsair Vengeance LPX 16GB DDR4 3200MHz</div>
+                        <div class="product-price">Q 450.00</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.imgur.com/5DygPv3.png" alt="SSD NVMe M.2" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Disco Duro Sólido Kingston NV2 1TB NVMe PCIe 4.0 M.2</div>
+                        <div class="product-price">Q 625.00</div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://i.imgur.com/SyeU3VS.png" alt="Procesador Intel Core i5" class="product-img">
+                    <div class="product-info">
+                        <div class="product-name">Procesador Intel Core i5-12400F 4.4GHz LGA1700</div>
+                        <div class="product-price">Q 1,350.00</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proveedores">
+            <h2 class="section-title">Nuestros Proveedores</h2>
+            <div class="grid-providers">
+                <div class="provider-card">
+                    <img src="https://i.imgur.com/hO43Aa4.png" alt="ASUS" class="provider-img">
+                    <h4>ASUS Guatemala</h4>
+                </div>
+                <div class="provider-card">
+                    <img src="https://i.imgur.com/MzC6iaO.png" alt="Gigabyte" class="provider-img">
+                    <h4>Gigabyte Technology</h4>
+                </div>
+                <div class="provider-card">
+                    <img src="https://i.imgur.com/gNpPNFb.png" alt="Kingston" class="provider-img">
+                    <h4>Kingston Latam Distribución</h4>
+                </div>
+            </div>
+        </section>
+
+        <section id="clientes">
+            <h2 class="section-title">Nuestros Clientes</h2>
+            <div class="grid-clients">
+                <div class="client-card">
+                    <img src="https://i.imgur.com/tXmSuSE.png" alt="Silver Games" class="client-img">
+                    <div class="client-details">
+                        <h4>SilverGames</h4>
+                        <p>Tienda de venta de videojuegos y ensambles de PCs.</p>
+                    </div>
+                </div>
+                <div class="client-card">
+                    <img src="https://i.imgur.com/6v4rEnh.png" alt="HCLTech" class="client-img">
+                    <div class="client-details">
+                        <h4>HCLTech</h4>
+                        <p>Empresa multinacional de servicios corporativos de TI, desarrollo de software y consultoría tecnológica.</p>
+                    </div>
+                </div>
+                <div class="client-card">
+                    <img src="https://i.imgur.com/QRX24BT.png" alt="Mapfre" class="client-img">
+                    <div class="client-details">
+                        <h4>MAPFRE</h4>
+                        <p>Compañía multinacional global líder en servicios de aseguramiento, reaseguro y gestión de riesgos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contactenos">
+            <h2 class="section-title">Contáctenos</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-phone"></i> +502 5554 9481</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@infocompt.com.gt</p>
+                    <p><i class="fa-solid fa-location-dot"></i> Calzada Roosevelt, Ciudad de Guatemala, Guatemala</p>
+                    <a href="https://www.facebook.com/profile.php?id=61590651384025" target="_blank" class="social-link">
+                        <i class="fa-brands fa-facebook-f"></i> InfoCompt en Facebook
+                    </a>
+                </div>
+                <a href="https://www.google.com/maps/search/?api=1&query=Calzada+Roosevelt,+Ciudad+de+Guatemala,+Guatemala" target="_blank" class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!11m18!1m12!1m3!1d3860.9743241285273!2d-90.56414168516013!3d14.62899478978589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a1af6b9eb977%3A0x6d8591f4a4dfbf26!2sUniversidad%20Mariano%20G%C3%A1lvez%20de%20Guatemala!5e0!3m2!1ses!2sgt!4v1680000000000!5m2!1ses!2sgt"></iframe>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 InfoCompt. Diseñado por Oscar Leonardo Valdez De León - Carné 0900-26-4380. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+
+        function showSlides() {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+            setTimeout(showSlides, 4000);
+        }
+        showSlides();
+
+        document.querySelectorAll('.nav-item a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script></body></html>
